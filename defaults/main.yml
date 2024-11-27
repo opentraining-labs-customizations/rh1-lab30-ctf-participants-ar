@@ -5,6 +5,8 @@
 # Lab user
 rh1_lab30_ctf_participants_ar_username: lab-user
 rh1_lab30_ctf_participants_ar_group: lab-user
+# Set this variable to set password for the user
+#rh1_lab30_ctf_participants_ar_user_password: CHANGEME
 
 # there are two options participant/server
 rh1_lab30_ctf_participants_ar_task_type: participant
