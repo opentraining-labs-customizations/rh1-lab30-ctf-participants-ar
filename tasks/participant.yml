@@ -15,6 +15,7 @@
             line: PasswordAuthentication yes
             regexp: '^ *PasswordAuthentication'
             path: /etc/ssh/sshd_config
+          delegate_to: "{{ _hostname_ }}"
 
         - name: Restart sshd to read conf changes
           ansible.builtin.service:
