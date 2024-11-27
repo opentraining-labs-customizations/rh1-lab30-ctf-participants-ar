@@ -21,6 +21,7 @@
           ansible.builtin.service:
             name: sshd
             state: restarted
+          delegate_to: "{{ _hostname_ }}"
 
     - name: Enable sudo access for the user
       ansible.builtin.lineinfile:
