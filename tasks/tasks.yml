@@ -1,0 +1,52 @@
+- user:
+    name: lab-user
+    groups: wheel
+  delegate_to: "{{ item }}"
+  loop: "{{ groups['servers'] }}"
+
+- name: Enable users in wheel group for sudo access
+  lineinfile:
+    dest: /etc/sudoers.d/90-lab-user
+    state: present
+    create: true
+    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+  delegate_to: "{{ item }}"
+  loop: "{{ groups['servers'] }}"
+
+- name: Create .ssh directory
+  file: 
+    path: /home/lab-user/.ssh/
+    state: directory
+    mode: 0700
+    owner: lab-user
+  delegate_to: "{{ item }}"
+  loop: "{{ groups['servers'] }}"
+
+- name: Create public key
+  copy:
+    dest: /home/lab-user/.ssh/rh1-lab16-ctf-key.pub
+    mode: 0600
+    owner: lab-user
+    content: "{{ ctf_ssh_public_key }}"
+  delegate_to: "{{ item }}"
+  loop: "{{ groups['servers'] }}"
+
+- name: Copy public key in .ssh/authorized_keys
+  lineinfile:
+    path: /home/lab-user/.ssh/authorized_keys
+    state: present
+    create: true
+    mode: 0600
+    owner: lab-user
+    line: "{{ ctf_ssh_public_key }}"
+  delegate_to: "{{ item }}"
+  loop: "{{ groups['servers'] }}"
+
+- name: Create private key
+  copy:
+    dest: /home/lab-user/.ssh/rh1-lab16-ctf-key
+    mode: 0600
+    owner: lab-user
+    content: "{{ ctf_ssh_private_key }}"
+  delegate_to: "{{ item }}"
+  loop: "{{ groups['servers'] }}"
