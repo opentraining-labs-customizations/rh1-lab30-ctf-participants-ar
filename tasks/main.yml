@@ -1,2 +1,13 @@
-- name: Include tasks
-  include_tasks: tasks.yml
+---
+- name: Include tasks for server
+  when: rh1_lab30_ctf_participants_ar_task_type == 'server'
+  ansilbe.builtin.include_tasks:
+    file: server.yml
+
+- name: Include tasks for participant hosts
+  when: rh1_lab30_ctf_participants_ar_task_type == 'participant'
+  ansilbe.builtin.include_tasks:
+    file: participant.yml
+  loop: "{{ rh1_lab30_ctf_participants_ar_participant_hosts }}"
+  loop_control:
+    loop_var: _hostname_
