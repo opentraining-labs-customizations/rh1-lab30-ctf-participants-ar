@@ -5,4 +5,3 @@
     owner: "{{ rh1_lab30_ctf_participants_ar_username }}"
     group: "{{ rh1_lab30_ctf_participants_ar_username }}"
     mode: 0600
-  delegate_to: "{{ _hostname_ }}"
