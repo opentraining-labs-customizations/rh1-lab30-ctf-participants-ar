@@ -11,3 +11,11 @@
   loop: "{{ rh1_lab30_ctf_participants_ar_participant_hosts }}"
   loop_control:
     loop_var: _hostname_
+
+- name: Include tasks for participant hosts to create service accounts
+  when: rh1_lab30_ctf_participants_ar_task_type == 'participant'
+  ansible.builtin.include_tasks:
+    file: service-accounts.yml
+  loop: "{{ rh1_lab30_ctf_participants_ar_participant_hosts }}"
+  loop_control:
+    loop_var: _hostname_
